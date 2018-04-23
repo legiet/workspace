@@ -66,18 +66,31 @@ class Adventurer:
             # Checks if physical damage is > 0
             amount = amount - self._defense
             if amount > 0:
-                if self._hit_points > self._hit_points - amount
                     self._hit_points -= amount
+                    if self._hit_points < 0:
+                        self._hit_points = 0
+                        print("{} Took {} {} damage! Hit Points: {}".format(
+                            self._name, amount, damage_type, self._hit_points))
                 else:
                     self._hit_points = 0
+                    print("{} Took {} damage! Hit Points: {}".format(
+                        self._name, amount, self._hit_points))
             else:
                 amount = 0
-                self._hit_points -= amount
         elif damage_type == 'magic':
             # Checks if magic damage is > 0
             amount = amount - self._magic_defense
             if amount > 0:
                 self._hit_points -= amount
+                if self._hit_points < 0:
+                    self._hit_points = 0
+                    print("{} Took {} {} damage! Hit Points: {}".format(
+                        self._name, amount, damage_type, self._hit_points))
+            else:
+                self._hit_points = 0
+                print("{} Took {} {} damge! Hit Points: {}".format(
+                    self._name, amount, damage_type, self._hit_points))
+
 
 
 class Fighter(Adventurer):
