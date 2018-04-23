@@ -1,10 +1,3 @@
-# Lab 9: Draw Stars
-# Caitlin Abuel, Champ Foronda
-# csa73, cf654
-# 4/3/18
-# CS126L-04
-
-
 import turtle
 
 
@@ -59,8 +52,8 @@ def plot_plain_stars(picture_size, coordinates_dict):
     turtle.ht()
     for i in coordinates_dict:
         turtle.penup()
-        turtle.goto(coordinates_dict[i][0]*picture_size/2.1,
-                    coordinates_dict[i][1]*picture_size/2.1)
+        turtle.goto(coordinates_dict[i][0] * picture_size / 2.1,
+                    coordinates_dict[i][1] * picture_size / 2.1)
         draw_square(1)
 
 
@@ -69,9 +62,9 @@ def plot_by_magnitude(picture_size, coordinates_dict, magnitudes_dict):
     turtle.ht()
     for i in coordinates_dict:
         turtle.penup()
-        turtle.goto(coordinates_dict[i][0]*picture_size/2,
-                    coordinates_dict[i][1]*picture_size/2)
-        star_size = round(10.0 / (magnitudes_dict[i]+2))
+        turtle.goto(coordinates_dict[i][0] * picture_size / 2,
+                    coordinates_dict[i][1] * picture_size / 2)
+        star_size = round(10.0 / (magnitudes_dict[i] + 2))
         if star_size > 8:
             star_size = 8
         draw_square(star_size)
