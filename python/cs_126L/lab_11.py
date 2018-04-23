@@ -30,10 +30,13 @@ class Attack():
         self._type = damage_type
 
     def get_attack_type(self):
+        # Return attack type as a string
         return self._type
 
     def get_damage(self):
-        pass
+        # Rolls damage value and stores it into damage_value
+        self.damage_value = r.roll(self._number, self._sides)
+        return self.damage_value
 
 
 class Adventurer:
