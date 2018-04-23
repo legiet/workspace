@@ -38,21 +38,46 @@ class Attack():
         self.damage_value = r.roll(self._number, self._sides)
         return self.damage_value
 
+    def get_attack_name(self):
+        # Returns name of attack
+        return self._name
+
 
 class Adventurer:
     # Encapsulates the concept of an adventurer
 
     def __init__(self, name, hit_points, defense, magic_defense, initiative):
-        pass
+        self._name = name
+        self._hit_points = hit_points
+        self._defense = defense
+        self._magic_defense = magic_defense
+        self._initiative = initiative
 
     def is_alive(self):
-        pass
+        return self.hit_points > 0
 
     def roll_initiative(self):
-        pass
+        return random.randint(0, self._initiative)
 
     def take_damage(self, amount, damage_type):
-        pass
+
+        # Physical, reduce hit_points by amount - defense
+        if damage_type == 'physical':
+            # Checks if physical damage is > 0
+            amount = amount - self._defense
+            if amount > 0:
+                if self._hit_points > self._hit_points - amount
+                    self._hit_points -= amount
+                else:
+                    self._hit_points = 0
+            else:
+                amount = 0
+                self._hit_points -= amount
+        elif damage_type == 'magic':
+            # Checks if magic damage is > 0
+            amount = amount - self._magic_defense
+            if amount > 0:
+                self._hit_points -= amount
 
 
 class Fighter(Adventurer):
