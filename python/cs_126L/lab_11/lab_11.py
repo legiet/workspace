@@ -42,6 +42,12 @@ class Attack():
         # Returns name of attack
         return self._name
 
+    def get_sides_of_die(self):
+        return self._sides
+
+    def get_number_of_die(self):
+        return self._number
+
 
 class Adventurer:
 
@@ -59,6 +65,21 @@ class Adventurer:
     def roll_initiative(self):
         return random.randint(0, self._initiative)
 
+    def get_name(self):
+        return self._name
+
+    def get_hit_points(self):
+        return self._hit_points
+
+    def get_defense(self):
+        return self._defense
+
+    def get_mag_defense(self):
+        return self._magic_defense
+
+    def get_initiative(self):
+        return self._initiative
+
     def take_damage(self, amount, damage_type):
 
         # Physical, reduce hit_points by amount - defense
@@ -66,14 +87,14 @@ class Adventurer:
             # Checks if physical damage is > 0
             amount = amount - self._defense
             if amount > 0:
-                    self._hit_points -= amount
-                    if self._hit_points < 0:
-                        self._hit_points = 0
-                        print("{} Took {} {} damage! Hit Points: {}".format(
-                            self._name, amount, damage_type, self._hit_points))
+                self._hit_points -= amount
+                if self._hit_points < 0:
+                    self._hit_points = 0
+                    print("{} suffers {} {} damage! Hit Points: {}".format(
+                        self._name, amount, damage_type, self._hit_points))
                 else:
                     amount = 0
-                    print("{} Took {} damage! Hit Points: {}".format(
+                    print("{} suffers {} damage! Hit Points: {}".format(
                         self._name, amount, self._hit_points))
             else:
                 amount = 0
@@ -85,11 +106,11 @@ class Adventurer:
                 # Checks if hit points is negative after taking damage
                 if self._hit_points < 0:
                     self._hit_points = 0
-                    print("{} Took {} {} damage! Hit Points: {}".format(
+                    print("{} suffers {} {} damage! Hit Points: {}".format(
                         self._name, amount, damage_type, self._hit_points))
             else:
                 amount = 0
-                print("{} Took {} {} damage! Hit Points: {}".format(
+                print("{} suffers {} {} damage! Hit Points: {}".format(
                     self._name, amount, damage_type, self._hit_points))
 
 
@@ -98,18 +119,24 @@ class Fighter(Adventurer):
     _DEF = 10
     _MAG_DEF = 4
 
-
     def __init__(self, name, initiative):
         super().__init__(name, Fighter._HP, Fighter._DEF, Fighter._MAG_DEF, initiative)
         self._melee = Attack("Slash", 1, 8, "physical")
 
-
     def strike(self):
-        pass
-
+        # Calculates and returns information about a physical strike from this object
+        # Returns a tuple consisting damage_value and damage_type
+        self.damage_type = self._melee.get_attack_type()
+        self.damage_value = self._melee.get_damage()
+        print(self._name + 'attacks with' + self._melee.get_attack_name()
+              + "for" + str(self.damage_value) + self.damage_type + "damage")
+        return (self.damage_value, self.damage_type)
 
     def __str__(self):
-        pass
+        return (self.name + ' with ' + str(self.self_HP) + ' hit points and a ' +
+                self._melee.get_attack_name() + ' attack (' +
+                str(self._melee.get_number_of_die()) +
+                'd' + str(self._melee.get_sides_of_die()))
 
 
 class Wizard(Adventurer):
@@ -118,15 +145,35 @@ class Wizard(Adventurer):
     _MAG_DEF = 10
 
     def __init__(self, name, initiative):
-        pass
+        super().__init__(name, Wizard._HP, Wizard._DEF, Wizard._MAG_DEF, initiative)
+        self._spell = Attack("Fireball", 3, 6, "magic")
 
     def cast(self):
-        pass
+        # Calculates and returns information about a magical strike form this object
+        # Returns a tuple consisting damage_value and damage_type
+        self.damage_type = self._spell.get_attack_type()
+        self.damage_value = self._spell.get_damage()
+        print(self._name + 'attacks with' self._spell.get_attack_name()
+              + "for" + str(self.damage_value) + self.damage_type + "damage")
+        return (self.damage_value, self.damage_type)
 
     def __str(self):
-        pass
+        return (self.name + ' with ' + str(self.self_HP) + ' hit points and a ' +
+                self._spell.get_attack_name() + ' attack (' +
+                str(self._spell.get_number_of_die() +
+                    'd' + str(self._spell.get_sides_of_die())))
 
 
 if __name__ == "__main__":
+    # Create the Fighter
     a = Fighter("Aragorn", 20)
     print("Created: ", a)
+
+    # Create the Wizard
+    b = Wizard("Gandalf", 20)
+    print("Created: ", b)
+
+    # Creates variable to keep track of rounds of combat
+    rounds_tracker = 0
+    while a.is_alive() == b.is_alive():
+        print("Test")
