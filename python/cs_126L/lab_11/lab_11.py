@@ -21,8 +21,8 @@ r = DiceRoller()
 
 
 class Attack():
-    # Encapsulates the concept of an attack
 
+    # Encapsulates the concept of an attack
     def __init__(self, name, number_of_die, sides_of_die, damage_type):
         self._name = _name
         self._sides = sides_of_die
@@ -44,8 +44,8 @@ class Attack():
 
 
 class Adventurer:
-    # Encapsulates the concept of an adventurer
 
+    # Encapsulates the concept of an adventurer
     def __init__(self, name, hit_points, defense, magic_defense, initiative):
         self._name = name
         self._hit_points = hit_points
@@ -72,7 +72,7 @@ class Adventurer:
                         print("{} Took {} {} damage! Hit Points: {}".format(
                             self._name, amount, damage_type, self._hit_points))
                 else:
-                    self._hit_points = 0
+                    amount = 0
                     print("{} Took {} damage! Hit Points: {}".format(
                         self._name, amount, self._hit_points))
             else:
@@ -82,15 +82,15 @@ class Adventurer:
             amount = amount - self._magic_defense
             if amount > 0:
                 self._hit_points -= amount
+                # Checks if hit points is negative after taking damage
                 if self._hit_points < 0:
                     self._hit_points = 0
                     print("{} Took {} {} damage! Hit Points: {}".format(
                         self._name, amount, damage_type, self._hit_points))
             else:
-                self._hit_points = 0
-                print("{} Took {} {} damge! Hit Points: {}".format(
+                amount = 0
+                print("{} Took {} {} damage! Hit Points: {}".format(
                     self._name, amount, damage_type, self._hit_points))
-
 
 
 class Fighter(Adventurer):
@@ -98,12 +98,15 @@ class Fighter(Adventurer):
     _DEF = 10
     _MAG_DEF = 4
 
+
     def __init__(self, name, initiative):
         super().__init__(name, Fighter._HP, Fighter._DEF, Fighter._MAG_DEF, initiative)
         self._melee = Attack("Slash", 1, 8, "physical")
 
+
     def strike(self):
         pass
+
 
     def __str__(self):
         pass
