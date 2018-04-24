@@ -24,7 +24,7 @@ class Attack():
 
     # Encapsulates the concept of an attack
     def __init__(self, name, number_of_die, sides_of_die, damage_type):
-        self._name = _name
+        self._name = name
         self._sides = sides_of_die
         self._number = number_of_die
         self._type = damage_type
